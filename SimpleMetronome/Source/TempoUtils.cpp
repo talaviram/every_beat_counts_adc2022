@@ -8,9 +8,16 @@ void TempoUtils::calculatePosition (const AudioPlayHead::PositionInfo pos)
         ppq = *pos.getPpqPosition();
     else
         ppq = 0.0;
+
+    isPlay = pos.getIsPlaying();
 }
 
 int TempoUtils::getLastWholeQuarter() const
 {
     return static_cast<int> (floor (ppq));
+}
+
+bool TempoUtils::isPlaying() const
+{
+    return isPlay;
 }

@@ -25,7 +25,7 @@ void SimpleMetronomeAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     auto& tempoState = audioProcessor.getTempoState();
     const auto quarter = tempoState.getLastWholeQuarter();
-    g.setColour (Colours::white);
+    g.setColour (tempoState.isPlaying() ? Colours::lightgreen : Colours::white);
     g.setFont (15.0f);
     g.drawFittedText (String (quarter), getLocalBounds(), Justification::centred, 1);
 }
