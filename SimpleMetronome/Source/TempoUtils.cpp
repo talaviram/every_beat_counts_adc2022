@@ -46,3 +46,9 @@ juce::AudioPlayHead::TimeSignature TempoUtils::getTimeSignature() const
 {
     return timeSig;
 }
+
+double TempoUtils::getQuarterInSeconds() const
+{
+    // beat per second
+    return bpm / 60.0;
+}

@@ -15,6 +15,8 @@ public:
     double getTempo() const;
     juce::AudioPlayHead::TimeSignature getTimeSignature() const;
 
+    double getQuarterInSeconds() const;
+
 private:
     bool isPlay { false };
     double ppq;
