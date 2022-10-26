@@ -59,6 +59,8 @@ target_sources(SampleMetronome
     Source/PluginEditor.cpp
     Source/PluginProcessor.h
     Source/PluginProcessor.cpp
+    Source/TempoUtils.h
+    Source/TempoUtils.cpp
 )
 target_compile_definitions(SampleMetronome
     PUBLIC

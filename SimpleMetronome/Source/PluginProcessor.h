@@ -1,5 +1,6 @@
 #pragma once
 
+#include "TempoUtils.h"
 #include <JuceHeader.h>
 
 class SimpleMetronomeAudioProcessor : public juce::AudioProcessor
@@ -40,6 +41,9 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    const TempoUtils& getTempoState() const { return tempoUtils; }
+
 private:
+    TempoUtils tempoUtils;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleMetronomeAudioProcessor)
 };

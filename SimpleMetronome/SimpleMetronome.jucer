@@ -5,6 +5,8 @@
               pluginManufacturerCode="Manu" pluginCode="Metr" projectLineFeed="&#10;">
   <MAINGROUP id="FyiTvC" name="SimpleMetronome">
     <GROUP id="{E52040D8-6209-48A7-16A8-652138E0AA3B}" name="Source">
+      <FILE id="JQ3NMR" name="TempoUtils.cpp" compile="1" resource="0" file="Source/TempoUtils.cpp"/>
+      <FILE id="ktKFeF" name="TempoUtils.h" compile="0" resource="0" file="Source/TempoUtils.h"/>
       <FILE id="OI49OQ" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="vi8JpC" name="PluginProcessor.h" compile="0" resource="0"

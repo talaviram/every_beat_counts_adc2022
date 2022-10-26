@@ -120,6 +120,13 @@ void SimpleMetronomeAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    if (auto* playhead = getPlayHead())
+    {
+        const auto pos = playhead->getPosition();
+        if (pos.hasValue())
+            tempoUtils.calculatePosition (*pos);
+    }
+
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* channelData = buffer.getWritePointer (channel);
