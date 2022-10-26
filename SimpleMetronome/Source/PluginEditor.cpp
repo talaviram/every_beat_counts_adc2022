@@ -23,10 +23,11 @@ void SimpleMetronomeAudioProcessorEditor::timerCallback()
 void SimpleMetronomeAudioProcessorEditor::paint (Graphics& g)
 {
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
+    auto& tempoState = audioProcessor.getTempoState();
+    const auto quarter = tempoState.getLastWholeQuarter();
     g.setColour (Colours::white);
     g.setFont (15.0f);
-    g.drawFittedText ("SimpleMetronome", getLocalBounds(), Justification::centred, 1);
+    g.drawFittedText (String (quarter), getLocalBounds(), Justification::centred, 1);
 }
 
 void SimpleMetronomeAudioProcessorEditor::resized()
