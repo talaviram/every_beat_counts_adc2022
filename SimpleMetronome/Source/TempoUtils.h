@@ -10,7 +10,15 @@ public:
     int getLastWholeQuarter() const;
     bool isPlaying() const;
 
+    double getQuarterRateInSamples (double sampleRate) const;
+
+    double getTempo() const;
+    juce::AudioPlayHead::TimeSignature getTimeSignature() const;
+
 private:
     bool isPlay { false };
     double ppq;
+    double lastBarPpq;
+    double bpm;
+    juce::AudioPlayHead::TimeSignature timeSig;
 };

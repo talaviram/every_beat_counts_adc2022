@@ -27,7 +27,7 @@ void SimpleMetronomeAudioProcessorEditor::paint (Graphics& g)
     const auto quarter = tempoState.getLastWholeQuarter();
     g.setColour (tempoState.isPlaying() ? Colours::lightgreen : Colours::white);
     g.setFont (15.0f);
-    g.drawFittedText (String (quarter), getLocalBounds(), Justification::centred, 1);
+    g.drawFittedText (String (quarter) + " @ " + String (tempoState.getTempo(), 2) + "BPM" + String (tempoState.getTimeSignature().numerator) + "/" + String (tempoState.getTimeSignature().denominator), getLocalBounds(), Justification::centred, 1);
 }
 
 void SimpleMetronomeAudioProcessorEditor::resized()

@@ -9,7 +9,22 @@ void TempoUtils::calculatePosition (const AudioPlayHead::PositionInfo pos)
     else
         ppq = 0.0;
 
+    if (pos.getPpqPositionOfLastBarStart().hasValue())
+        lastBarPpq = *pos.getPpqPositionOfLastBarStart();
+    else
+        lastBarPpq = 0.0;
+
     isPlay = pos.getIsPlaying();
+
+    if (pos.getBpm().hasValue())
+        bpm = *pos.getBpm();
+    else
+        bpm = 120.0;
+
+    if (pos.getTimeSignature().hasValue())
+        timeSig = *pos.getTimeSignature();
+    else
+        timeSig = { 4, 4 };
 }
 
 int TempoUtils::getLastWholeQuarter() const
@@ -20,4 +35,14 @@ int TempoUtils::getLastWholeQuarter() const
 bool TempoUtils::isPlaying() const
 {
     return isPlay;
+}
+
+double TempoUtils::getTempo() const
+{
+    return bpm;
+}
+
+juce::AudioPlayHead::TimeSignature TempoUtils::getTimeSignature() const
+{
+    return timeSig;
 }
