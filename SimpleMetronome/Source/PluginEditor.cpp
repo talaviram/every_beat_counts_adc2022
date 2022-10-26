@@ -7,10 +7,16 @@ SimpleMetronomeAudioProcessorEditor::SimpleMetronomeAudioProcessorEditor (Simple
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
     setSize (400, 300);
+    startTimerHz (30);
 }
 
 SimpleMetronomeAudioProcessorEditor::~SimpleMetronomeAudioProcessorEditor()
 {
+}
+
+void SimpleMetronomeAudioProcessorEditor::timerCallback()
+{
+    repaint();
 }
 
 //==============================================================================

@@ -3,7 +3,7 @@
 #include "PluginProcessor.h"
 #include <JuceHeader.h>
 
-class SimpleMetronomeAudioProcessorEditor : public juce::AudioProcessorEditor
+class SimpleMetronomeAudioProcessorEditor : public juce::AudioProcessorEditor, public juce::Timer
 {
 public:
     SimpleMetronomeAudioProcessorEditor (SimpleMetronomeAudioProcessor&);
@@ -11,6 +11,8 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+
+    void timerCallback() override;
 
 private:
     SimpleMetronomeAudioProcessor& audioProcessor;
