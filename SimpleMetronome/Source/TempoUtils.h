@@ -8,6 +8,7 @@ public:
     void calculatePosition (const juce::AudioPlayHead::PositionInfo pos);
 
     int getLastWholeQuarter() const;
+    double getSubQuarterDivision() const;
     bool isPlaying() const;
 
     double getQuarterRateInSamples (double sampleRate) const;

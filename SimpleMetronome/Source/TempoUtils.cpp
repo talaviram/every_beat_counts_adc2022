@@ -32,6 +32,11 @@ int TempoUtils::getLastWholeQuarter() const
     return static_cast<int> (floor (ppq));
 }
 
+double TempoUtils::getSubQuarterDivision() const
+{
+    return ppq - getLastWholeQuarter();
+}
+
 bool TempoUtils::isPlaying() const
 {
     return isPlay;
