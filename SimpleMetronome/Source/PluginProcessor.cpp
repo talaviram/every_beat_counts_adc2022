@@ -134,13 +134,18 @@ void SimpleMetronomeAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
     const auto denominatorRatio = tempoUtils.getDenominatorRatioToQuarters();
     const auto beatInSamples = (getSampleRate() / tempoUtils.getQuarterInSeconds()) * denominatorRatio;
     auto nextBeatInSamples = roundToInt ((1.0 - tempoUtils.getSubDivisionForDenominator()) * beatInSamples);
+    auto nextBeat = tempoUtils.getCurrentBeat() + 1;
 
     if (tempoUtils.getSubDivisionForDenominator() == 0.0)
         nextBeatInSamples = 0;
 
     while (nextBeatInSamples < buffer.getNumSamples())
     {
-        const auto beatGain = 0.5f;
+        // beats starts at 1; no modulo
+        if (nextBeat > tempoUtils.getTimeSignature().numerator)
+            nextBeat = 1;
+
+        const auto beatGain = nextBeat == 1 ? 0.8f : 0.3f;
         std::optional<int> tickAt;
 
         if (nextBeatInSamples < buffer.getNumSamples())
@@ -153,6 +158,7 @@ void SimpleMetronomeAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
 
             // move to next tick
             nextBeatInSamples = roundToInt (nextBeatInSamples + beatInSamples);
+            nextBeat++;
         }
     }
 }
