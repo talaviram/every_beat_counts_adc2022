@@ -1,6 +1,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+#include <optional>
 using namespace juce;
 
 SimpleMetronomeAudioProcessor::SimpleMetronomeAudioProcessor()
@@ -84,6 +85,7 @@ void SimpleMetronomeAudioProcessor::changeProgramName (int, const String&)
 
 void SimpleMetronomeAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    ppqSamplesCounter = 0;
 }
 
 void SimpleMetronomeAudioProcessor::releaseResources()
@@ -127,10 +129,24 @@ void SimpleMetronomeAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
             tempoUtils.calculatePosition (*pos);
     }
 
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    const auto quarterInSamples = getSampleRate() / tempoUtils.getQuarterInSeconds();
+    ppqSamplesCounter += buffer.getNumSamples();
+    std::optional<int> tickAt;
+
+    if (ppqSamplesCounter > quarterInSamples)
     {
-        auto* channelData = buffer.getWritePointer (channel);
-        // ..do something to the data...
+        ppqSamplesCounter %= roundToInt (quarterInSamples);
+        tickAt = buffer.getNumSamples() - ppqSamplesCounter;
+
+        // missed deadline. don't tick
+        if (*tickAt < 0)
+            tickAt = {};
+    }
+
+    if (tickAt.has_value())
+    {
+        for (int channel = 0; channel < totalNumOutputChannels; ++channel)
+            buffer.setSample (channel, *tickAt, 0.5f);
     }
 }
 
