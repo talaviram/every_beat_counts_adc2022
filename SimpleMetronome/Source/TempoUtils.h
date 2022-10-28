@@ -6,7 +6,8 @@ class TempoUtils
 {
 public:
     void calculatePosition (const juce::AudioPlayHead::PositionInfo pos);
-
+    // returns current beat. starting at 1 [1-numerator]
+    int getCurrentBeat() const;
     int getLastWholeQuarter() const;
     double getSubQuarterDivision() const;
     int getLastWholeAsDenominator() const;

@@ -27,6 +27,11 @@ void TempoUtils::calculatePosition (const AudioPlayHead::PositionInfo pos)
         timeSig = { 4, 4 };
 }
 
+int TempoUtils::getCurrentBeat() const
+{
+    return static_cast<int> (std::floor (ppq / getDenominatorRatioToQuarters())) % getTimeSignature().numerator + 1;
+}
+
 int TempoUtils::getLastWholeQuarter() const
 {
     return static_cast<int> (floor (ppq));
