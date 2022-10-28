@@ -140,6 +140,7 @@ void SimpleMetronomeAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
 
     while (nextBeatInSamples < buffer.getNumSamples())
     {
+        const auto beatGain = 0.5f;
         std::optional<int> tickAt;
 
         if (nextBeatInSamples < buffer.getNumSamples())
@@ -148,7 +149,7 @@ void SimpleMetronomeAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
         if (tickAt.has_value())
         {
             for (int channel = 0; channel < totalNumOutputChannels; ++channel)
-                buffer.setSample (channel, *tickAt, 0.5f);
+                buffer.setSample (channel, *tickAt, beatGain);
 
             // move to next tick
             nextBeatInSamples = roundToInt (nextBeatInSamples + beatInSamples);
