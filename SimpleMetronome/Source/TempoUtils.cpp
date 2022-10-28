@@ -57,3 +57,8 @@ double TempoUtils::getQuarterInSeconds() const
     // beat per second
     return bpm / 60.0;
 }
+
+double TempoUtils::getDenominatorRatioToQuarters() const
+{
+    return 4.0 / static_cast<double> (getTimeSignature().denominator);
+}

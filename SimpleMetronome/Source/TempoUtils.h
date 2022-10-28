@@ -17,6 +17,7 @@ public:
     juce::AudioPlayHead::TimeSignature getTimeSignature() const;
 
     double getQuarterInSeconds() const;
+    double getDenominatorRatioToQuarters() const;
 
 private:
     bool isPlay { false };
