@@ -131,10 +131,11 @@ void SimpleMetronomeAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
     if (! tempoUtils.isPlaying())
         return;
 
-    const auto beatInSamples = getSampleRate() / tempoUtils.getQuarterInSeconds();
-    auto nextBeatInSamples = roundToInt ((1.0 - tempoUtils.getSubQuarterDivision()) * beatInSamples);
+    const auto denominatorRatio = tempoUtils.getDenominatorRatioToQuarters();
+    const auto beatInSamples = (getSampleRate() / tempoUtils.getQuarterInSeconds()) * denominatorRatio;
+    auto nextBeatInSamples = roundToInt ((1.0 - tempoUtils.getSubDivisionForDenominator()) * beatInSamples);
 
-    if (tempoUtils.getSubQuarterDivision() == 0.0)
+    if (tempoUtils.getSubDivisionForDenominator() == 0.0)
         nextBeatInSamples = 0;
 
     while (nextBeatInSamples < buffer.getNumSamples())
