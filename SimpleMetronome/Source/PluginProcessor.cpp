@@ -132,19 +132,26 @@ void SimpleMetronomeAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mi
         return;
 
     const auto quarterInSamples = getSampleRate() / tempoUtils.getQuarterInSeconds();
-    const auto nextQuarterInSamples = roundToInt ((1.0 - tempoUtils.getSubQuarterDivision()) * quarterInSamples);
-
-    std::optional<int> tickAt;
+    auto nextQuarterInSamples = roundToInt ((1.0 - tempoUtils.getSubQuarterDivision()) * quarterInSamples);
 
     if (tempoUtils.getSubQuarterDivision() == 0.0)
-        tickAt = 0;
-    else if (nextQuarterInSamples < buffer.getNumSamples())
-        tickAt = nextQuarterInSamples;
+        nextQuarterInSamples = 0;
 
-    if (tickAt.has_value())
+    while (nextQuarterInSamples < buffer.getNumSamples())
     {
-        for (int channel = 0; channel < totalNumOutputChannels; ++channel)
-            buffer.setSample (channel, *tickAt, 0.5f);
+        std::optional<int> tickAt;
+
+        if (nextQuarterInSamples < buffer.getNumSamples())
+            tickAt = nextQuarterInSamples;
+
+        if (tickAt.has_value())
+        {
+            for (int channel = 0; channel < totalNumOutputChannels; ++channel)
+                buffer.setSample (channel, *tickAt, 0.5f);
+
+            // move to next tick
+            nextQuarterInSamples = roundToInt (nextQuarterInSamples + quarterInSamples);
+        }
     }
 }
 
