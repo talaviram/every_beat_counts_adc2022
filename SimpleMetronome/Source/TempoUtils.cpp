@@ -37,6 +37,16 @@ double TempoUtils::getSubQuarterDivision() const
     return ppq - getLastWholeQuarter();
 }
 
+int TempoUtils::getLastWholeAsDenominator() const
+{
+    return static_cast<int> (floor (ppq / getDenominatorRatioToQuarters()));
+}
+
+double TempoUtils::getSubDivisionForDenominator() const
+{
+    return (ppq / getDenominatorRatioToQuarters()) - getLastWholeAsDenominator();
+}
+
 bool TempoUtils::isPlaying() const
 {
     return isPlay;

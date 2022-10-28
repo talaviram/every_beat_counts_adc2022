@@ -9,6 +9,8 @@ public:
 
     int getLastWholeQuarter() const;
     double getSubQuarterDivision() const;
+    int getLastWholeAsDenominator() const;
+    double getSubDivisionForDenominator() const;
     bool isPlaying() const;
 
     double getQuarterRateInSamples (double sampleRate) const;
